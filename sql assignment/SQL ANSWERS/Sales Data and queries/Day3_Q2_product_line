@@ -1,0 +1,31 @@
+use sales_db;
+
+-- Create the table Emp_EH. Below are its fields. 
+-- ● EmpID (Primary Key) 
+-- ● EmpName 
+-- ● EmailAddress 
+-- Create a procedure to accept the values for the columns in Emp_EH. Handle the error using 
+-- exception handling concept. Show the message as “Error occurred” in case of anything wrong.
+
+CREATE TABLE Emp_EH (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(255),
+    EmailAddress VARCHAR(255)
+);
+SELECT * FROM Emp_EH;
+
+
+CREATE PROCEDURE InsertEmp_EH 
+    @EmpID INT,
+   @EmpName VARCHAR(255),
+    @EmailAddress VARCHAR(255)
+as
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        SELECT 'Error occurred' AS message
+    END;
+
+    INSERT INTO Emp_EH (EmpID, EmpName, EmailAddress)
+    VALUES (p_EmpID, p_EmpName, p_EmailAddress);
+END;
